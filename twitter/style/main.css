@@ -1,0 +1,259 @@
+body {
+    display: flex;
+    background-color: #15202B;
+    font: 1em -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif
+}
+
+label {
+    color: #ffffff;
+}
+
+/* unvisited link */
+a:link {
+    color: white;
+}
+  
+/* visited link */
+a:visited {
+    color: white;
+}
+
+/* mouse over link */
+a:hover {
+    color: green;
+}
+
+/* selected link */
+a:active {
+    color: #FFF864;
+}
+
+.left-container {
+    display: flex;
+    flex-basis: auto;
+    flex-flow: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.right-container {
+    display: flex;
+    flex-basis: 35%;
+    flex-wrap: nowrap;
+    flex-flow: column;
+}
+
+.sub-header {
+    font-size: 1.5em;
+}
+
+.logo {
+    flex-direction: row;
+    align-items: flex-start;
+    order: 1;
+}
+
+.navigation {
+    flex-direction: row;
+    justify-content: space-between;
+    order: 2;
+    font-size: 1.5em;
+}
+
+.navigation ul li {
+    flex-direction: column;
+    list-style-type: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.navigation a:focus {
+    color: green;
+}
+
+.timeline-container {
+    flex-flow: column nowrap;
+    flex-basis: 35%;
+    flex-grow: 1;
+    max-width: 600px;
+    border: 2px solid;
+    border-color: #38444D;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.timeline-page-identifier {
+    color: #ffffff;
+    border-bottom: 1px solid #38444D;
+    padding-left: 1em;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.tweet-status {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.tweet-status-pp-and-input {
+    display: flex;
+    padding: 1em;
+}
+
+.tweet-status-profile-picture {
+    display: flex;
+}
+
+.tweet-status-message input {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: 3em;
+    padding-left: 10px;
+    background-color: #15202B;
+    color: #ffffff;
+    border: 0px;
+    transition: height 0.4s ease-in-out;
+}
+
+.tweet-status-message input input::-webkit-input-placeholder {
+    font-size: 2em;
+}
+
+.tweet-status-message input:focus {
+    outline: none;
+    height: 6em;
+    background-color: #192734;
+}
+
+.tweet-status-update {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tweet-status-button {
+    background: #1DA1F1;
+    width: 100px;
+    border: none;
+    border-radius: 9999px;
+    color: #ffffff;
+    padding: 10px;
+    margin: 1em;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tweet-block {
+    background-color: #15202B;
+    color: #ffffff;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    border-color: #38444D;
+    padding: 1em;
+    margin-bottom: -5px;
+}
+
+.tweet-block.active {
+    background-color: #25394d;
+}
+
+.tweet-username {
+    color: #cccccc;
+}
+
+.tweet-profile-picture {
+    border-radius: 50%;
+}
+
+.tweet-image {
+    border: 2px solid;
+    border-color: #cccccc;
+}
+
+.tweet-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.tweet-buttons a {
+    text-decoration: none;
+}
+
+.tweet-buttons a.liked, 
+.tweet-buttons a.liked:hover {
+    color: red;
+}
+
+.tweet-buttons a:hover {
+    color: #FFF864;
+}
+
+.search-form {
+    color: #ffffff;
+    margin: 15px;
+    justify-content: center;
+}
+
+.search-form input {
+    background-color: #263341;
+    color: #ffffff;
+    height: 3.5em;
+    width: 40%;
+    padding-left: 15px;
+    border: 0px;
+    border-radius: 9999px;
+    transition: height 0.4s ease-in-out;
+}
+
+.search-form input:focus {
+    border: 2px #5e92c2 solid;
+    outline: none;
+}
+
+.popular-hashtags {
+    color: #ffffff;
+    margin: 15px;
+    justify-content: center;
+}
+
+.popular-hashtag-block-title {
+    background-color: #192734;
+    height: auto;
+    width: 40%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: 0;
+    border-radius: 15px 15px 0 0;
+}
+
+.popular-hashtag-row-item {
+    background-color: #192734;
+    height: auto;
+    width: 40%;
+    padding: 15px;
+    border-top: 1px #38444D solid;
+}
+
+.popular-hashtag-block-end {
+    background-color: #192734;
+    height: auto;
+    width: 40%;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px #38444D solid;
+    border-radius: 0 0 15px 15px;
+}
