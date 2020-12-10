@@ -76,6 +76,8 @@ tweetStatusForm.querySelector('#status').required=true;
 function submitted(event){
 	//alert('submitted!');
 	const st = tweetStatusForm.querySelector('#status');
+	const im = tweetStatusForm.querySelector('.upload-button').files[0];
+	console.log(im.name);
 	console.log(st.value);
 	event.preventDefault();
 	/* if(st.value.trim()==='') {
@@ -84,7 +86,7 @@ function submitted(event){
 	} */
 	//if(st.value.includes('word')) return;
 	var newTweet = twtBlock.cloneNode(true);//document.querySelector('.tweet-block').cloneNode(true);
-	newTweet.querySelector('.tweet-message').innerText = st.value;
+	newTweet.querySelector('.tweet-message').innerHTML = st.value+'<img src=\'/Users/user/twitter/images/'+im.name+'\'/>';
 	var heart = newTweet.querySelector('.fa-heart');
 	heart.addEventListener('click',(e)=>{
 		e.preventDefault();
@@ -109,3 +111,10 @@ function Count(){
 	tweetStatusForm.lastChild.innerHTML=count+'/250 chars remaining';
 	if(count<=0) alert('you exceeded the limit...');
 };
+var uploadPhoto = document.createElement('input');
+uploadPhoto.type='file';
+uploadPhoto.classList.add('upload-button');
+uploadPhoto.style.backgroundColor='white';
+
+var statusUpdate = tweetStatusForm.querySelector('.tweet-status-update');
+statusUpdate.insertBefore(uploadPhoto,statusUpdate.firstChild);
