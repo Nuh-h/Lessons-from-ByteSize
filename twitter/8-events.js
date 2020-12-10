@@ -25,17 +25,19 @@ searchBtn.addEventListener('click',onSearchClick);
 // - Use the event param passed in to add a new class of 'liked'
 // - Use preventDefault to stop the page jumping
 // - Make the click function remove the 'liked' class
-const likeBtns = document.querySelectorAll('.fa-heart');
-console.log(likeBtns);
-likeBtns.forEach(likeBtn => {
-	likeBtn.addEventListener('click', (e)=>{
-		//alert('you liked this tweet');
-		e.preventDefault();
-		const likeBtnElement = e.target;
-		likeBtnElement.classList.toggle('liked');		
+function addLike(){
+	const likeBtns = document.querySelectorAll('.fa-heart');
+	console.log(likeBtns);
+	likeBtns.forEach(likeBtn => {
+		likeBtn.addEventListener('click', (e)=>{
+			//alert('you liked this tweet');
+			e.preventDefault();
+			const likeBtnElement = e.target;
+			likeBtnElement.classList.toggle('liked');		
+		});
 	});
-});
-
+}
+addLike();
 
 // 4. Removing a tweet (left as exercise!)
 // - Add a new button to the tweet block
@@ -59,7 +61,6 @@ function addDelete(){
 	});
 }
 addDelete();
-
 // 5. Form validation
 // - Add a submit event handler to the new tweet form
 // - Add the new tweet block to the top of the list (using what we've learnt to stop page reloading!)
@@ -69,7 +70,7 @@ addDelete();
 // - Show countdown of chars left when typing (left as exercise)
 const twtBlock = document.createElement('div');
 twtBlock.classList.add('tweet-block');
-twtBlock.innerHTML = '<img class="tweet-profile-picture" src="./images/profile_picture.jpg" width="50px" height="50px"> <b>Connor Avery</b><br> <p class="fa fa-user tweet-username"> @connoraye </p> <p class="tweet-message">Tweet message will be here...></p> <div class="tweet-buttons"> <div><a class="fa fa-comment" href="#"></a></div> <div><a class="fa fa-retweet" href="#"> 2</a></div> <div><a class="fa fa-heart" href="#"></a></div> <div><a class="fa fa-share-alt" href="#"></a></div>'
+twtBlock.innerHTML = '<img class="tweet-profile-picture" src="./images/profile_picture.jpg" width="50px" height="50px"> <b>Connor Avery</b><br> <p class="fa fa-user tweet-username"> @connoraye </p> <p class="tweet-message">Tweet message will be here...></p> <div class="tweet-buttons"> <div><a class="fa fa-comment" href="#"></a></div> <div><a class="fa fa-retweet" href="#"> </a></div> <div><a class="fa fa-heart" href="#"></a></div> <div><a class="fa fa-share-alt" href="#"></a></div>'
 const tweetStatusForm = document.querySelector('#tweet-status-form');
 tweetStatusForm.querySelector('#status').required=true;
 function submitted(event){
@@ -77,11 +78,34 @@ function submitted(event){
 	const st = tweetStatusForm.querySelector('#status');
 	console.log(st.value);
 	event.preventDefault();
+	/* if(st.value.trim()==='') {
+		alert('empty tweet...');
+		return;
+	} */
+	//if(st.value.includes('word')) return;
 	var newTweet = twtBlock.cloneNode(true);//document.querySelector('.tweet-block').cloneNode(true);
 	newTweet.querySelector('.tweet-message').innerText = st.value;
+	var heart = newTweet.querySelector('.fa-heart');
+	heart.addEventListener('click',(e)=>{
+		e.preventDefault();
+		heart.classList.toggle('liked');
+		});
 	const tweetList = document.querySelector('#tweet-list');
 	tweetList.insertBefore(newTweet,tweetList.firstChild);
 	console.log(newTweet);
 	addDelete();
 }
 tweetStatusForm.addEventListener('submit',submitted);
+var charCount = document.createElement('p');
+var count = 250;
+charCount.innerHTML = count+' characters left';
+charCount.style.color='blue';
+tweetStatusForm.appendChild(charCount);
+const st = tweetStatusForm.querySelector('#status');
+st.addEventListener('input',Count)
+function Count(){
+	console.log(st.value);
+	count=250-st.value.length;
+	tweetStatusForm.lastChild.innerHTML=count+'/250 chars remaining';
+	if(count<=0) alert('you exceeded the limit...');
+};
