@@ -25,42 +25,46 @@ searchBtn.addEventListener('click',onSearchClick);
 // - Use the event param passed in to add a new class of 'liked'
 // - Use preventDefault to stop the page jumping
 // - Make the click function remove the 'liked' class
-function addLike(){
-	const likeBtns = document.querySelectorAll('.fa-heart');
-	console.log(likeBtns);
-	likeBtns.forEach(likeBtn => {
-		likeBtn.addEventListener('click', (e)=>{
-			//alert('you liked this tweet');
-			e.preventDefault();
-			const likeBtnElement = e.target;
-			likeBtnElement.classList.toggle('liked');		
-		});
+function likeEventHandler(likeBtn){
+	likeBtn.addEventListener('click', (e)=>{
+		//alert('you liked this tweet');
+		e.preventDefault();
+		const likeBtnElement = e.target;
+		likeBtnElement.classList.toggle('liked');		
 	});
 }
-addLike();
+const likeBtns = document.querySelectorAll('.fa-heart');
+console.log(likeBtns);
+likeBtns.forEach(likeBtn => {
+	likeEventHandler(likeBtn);
+});
 
 // 4. Removing a tweet (left as exercise!)
 // - Add a new button to the tweet block
 // - When this button is clicked, remove the whole tweet block from the DOM
 // - Look in the 7-dom.js exercises for some inspiration
-function addDelete(){
-	const tweets = document.querySelectorAll('.tweet-block');
-	tweets.forEach(tweet => {
-		const tweetBtns = tweet.querySelector('.tweet-buttons');
+function delEventHandler(tweet){
+	const tweetBtns = tweet.querySelector('.tweet-buttons');
+	var del = document.createElement('div');
+	del.innerHTML='<a class="fa fa-trash" href="#"></a>';
+	if(tweetBtns.lastChild.innerHTML!=='DELETE'){
+		const deleteBtn = document.createElement('a');
+		deleteBtn.innerHTML='DELETE';
+		deleteBtn.style='color:red;';
+		deleteBtn.href='#';
 		
-		if(tweetBtns.lastChild.innerHTML!=='DELETE'){
-			const deleteBtn = document.createElement('a');
-			deleteBtn.innerHTML='DELETE';
-			deleteBtn.style='color:red;';
-			deleteBtn.href='#';
-			
-			deleteBtn.addEventListener('click',(e)=>{ e.preventDefault();tweet.remove() });
-			
-			tweetBtns.appendChild(deleteBtn);
-		}
-	});
-}
-addDelete();
+		deleteBtn.addEventListener('click',(e)=>{ e.preventDefault();tweet.remove() });
+		tweetBtns.appendChild(del);
+		tweetBtns.appendChild(deleteBtn);
+	};
+};
+
+const tweets = document.querySelectorAll('.tweet-block');
+tweets.forEach(tweet => {
+	delEventHandler(tweet);
+});
+
+
 // 5. Form validation
 // - Add a submit event handler to the new tweet form
 // - Add the new tweet block to the top of the list (using what we've learnt to stop page reloading!)
@@ -76,8 +80,8 @@ tweetStatusForm.querySelector('#status').required=true;
 function submitted(event){
 	//alert('submitted!');
 	const st = tweetStatusForm.querySelector('#status');
-	const im = tweetStatusForm.querySelector('.upload-button').files[0];
-	console.log(im.name);
+	const im = tweetStatusForm.querySelector('.upload-button').files;
+	//console.log(im[0].name);
 	console.log(st.value);
 	event.preventDefault();
 	/* if(st.value.trim()==='') {
@@ -85,17 +89,24 @@ function submitted(event){
 		return;
 	} */
 	//if(st.value.includes('word')) return;
+	const imName = im.length==0?'':im[0].name;
+	//<!-- file path should be take good care of!! -->
+	const imPath = imName===''?'':'<img src=\'/Users/user/Desktop/twitter/images/'+imName+'\'/>';
 	var newTweet = twtBlock.cloneNode(true);//document.querySelector('.tweet-block').cloneNode(true);
-	newTweet.querySelector('.tweet-message').innerHTML = st.value+'<img src=\'/Users/user/twitter/images/'+im.name+'\'/>';
-	var heart = newTweet.querySelector('.fa-heart');
-	heart.addEventListener('click',(e)=>{
+	newTweet.querySelector('.tweet-message').innerHTML = st.value + imPath;
+	
+	var heart = newTweet.querySelector('.fa-heart');likeEventHandler(heart);
+	/*heart.addEventListener('click',(e)=>{
 		e.preventDefault();
 		heart.classList.toggle('liked');
-		});
+		}); */
+		
+	delEventHandler(newTweet);
+	
 	const tweetList = document.querySelector('#tweet-list');
 	tweetList.insertBefore(newTweet,tweetList.firstChild);
 	console.log(newTweet);
-	addDelete();
+	tweetStatusForm.reset();
 }
 tweetStatusForm.addEventListener('submit',submitted);
 var charCount = document.createElement('p');
@@ -113,8 +124,8 @@ function Count(){
 };
 var uploadPhoto = document.createElement('input');
 uploadPhoto.type='file';
-uploadPhoto.classList.add('upload-button');
-uploadPhoto.style.backgroundColor='white';
+uploadPhoto.classList.add('upload-button','tweet-status-button');
+uploadPhoto.style='background-color:white';
 
 var statusUpdate = tweetStatusForm.querySelector('.tweet-status-update');
 statusUpdate.insertBefore(uploadPhoto,statusUpdate.firstChild);
