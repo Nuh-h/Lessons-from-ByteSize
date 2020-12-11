@@ -47,7 +47,7 @@ function delEventHandler(tweet){
 	const tweetBtns = tweet.querySelector('.tweet-buttons');
 	var del = document.createElement('div');
 	del.innerHTML='<a class="fa fa-trash" href="#"></a>';
-	if(tweetBtns.lastChild.innerHTML!=='DELETE'){
+	/* if(tweetBtns.lastChild.innerHTML!=='DELETE'){
 		const deleteBtn = document.createElement('a');
 		deleteBtn.innerHTML='DELETE';
 		deleteBtn.style='color:red;';
@@ -56,7 +56,9 @@ function delEventHandler(tweet){
 		deleteBtn.addEventListener('click',(e)=>{ e.preventDefault();tweet.remove() });
 		tweetBtns.appendChild(del);
 		tweetBtns.appendChild(deleteBtn);
-	};
+	}; */
+	del.addEventListener('click',(e)=>{ e.preventDefault();tweet.remove() });
+	tweetBtns.appendChild(del);
 };
 
 const tweets = document.querySelectorAll('.tweet-block');
