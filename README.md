@@ -9,5 +9,5 @@ I added more functionalities than tasked for, from scratch ... using my imaginat
 The functionalities I added include the option to tweet an image along with the tweet. Ofcourse, I pre-programmed the filepath but I gained some idea of how the BackEnd dev is going to work.
 
 Initially I had the idea to fiddle with the twitter API but the clone turned out to be enough.
-Instead I finally learnt all I needed to be able to build my first web-app, a [to-do list](tudo.netlify.app) app. 
+Instead I finally learnt all I needed to be able to build my first web-app, a [to-do list](https://tudo.netlify.app) app. 
 More ideas have also come around after succeeding in this challenge, and will try to build them soon.
